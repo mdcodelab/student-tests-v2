@@ -10,7 +10,7 @@ import { LuGoal } from "react-icons/lu";
 import { PiStudent } from "react-icons/pi";
 
 
-async function LinksDropdown() {
+function LinksDropdown() {
   
 
   return (

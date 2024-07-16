@@ -1,6 +1,7 @@
 import LinksDropdown from "./LinksDropdown";
 import ThemeToggle from "./ThemeToggle";
 import { Button } from "./ui/button";
+import ToggleInButton from "./ToggleInButton";
 
 function Navbar() {
   return (
@@ -10,7 +11,7 @@ function Navbar() {
       </div>
       <div className="flex items-center gap-x-4">
         <ThemeToggle></ThemeToggle>
-        <Button>User</Button>
+        <ToggleInButton></ToggleInButton>
       </div>
     </nav>
   );

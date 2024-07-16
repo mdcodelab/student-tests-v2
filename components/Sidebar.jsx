@@ -17,7 +17,7 @@ function Sidebar() {
       </h1>
       <div
         className="background-div rounded mx-auto my-4"
-        style={{ width: "12rem", height: "10rem" }}
+        style={{ width: "15rem", height: "10rem" }}
       ></div>
       <div className="flex flex-col py-6 gap-y-14 pt-10">
         <Button
