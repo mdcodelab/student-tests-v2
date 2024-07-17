@@ -1,11 +1,12 @@
 import connectDB from "@/config/database";
+import User from "../../../models/userModel";
 
 export const GET = async (request) => {
-  await connectDB();
   try {
-    // Return the JSON response with the correct status
+    await connectDB();
+    const users = await User.find({});
     return new Response(
-      JSON.stringify({ message: "Hello world", status: 200 }, { status: 200 })
+      JSON.stringify(users, { status: 200 })
     );
   } catch (error) {
     return new Response(

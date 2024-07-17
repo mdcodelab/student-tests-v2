@@ -16,7 +16,7 @@ async function HomePage() {
         <h1 className="text-center text-2xl font-semibold pb-8 tracking-wide">
           Management Financiar
         </h1>
-        <Link href="/profile" className="w-50 ml-20 mt-6 relative p-2 rounded">
+        <Link href="/auth/login" className="w-50 ml-20 mt-6 relative p-2 rounded">
           <Button className="text-xl text-col-primary">
           Start Test
           </Button>

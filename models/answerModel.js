@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-const AnswerSchema = new mongoose.Schema(
+const {Schema} = mongoose;
+
+const AnswerSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,//use user id
@@ -11,6 +13,7 @@ const AnswerSchema = new mongoose.Schema(
       {
         type: String,
         required: true,
+        default: "0"
       },
     ],
   },
