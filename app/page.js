@@ -1,7 +1,9 @@
 import { Button } from "../components/ui/button";
 import Link from "next/link";
+import connectDB from "@/config/database";
 
-function HomePage() {
+async function HomePage() {
+  await connectDB();
   return (
     <div className="h-screen w-screen flex justify-center items-center background-div">
       <div

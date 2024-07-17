@@ -1,6 +1,7 @@
 
 
 function ResultsPage() {
+  console.log("results page");
   return (
     <div>
       Results Page
