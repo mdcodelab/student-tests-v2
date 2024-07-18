@@ -2,7 +2,7 @@
 
 function AuthLayout({children}) {
   return (
-    <div className="h-full items center justify-center bg-muted">
+    <div className="h-full flex items-center justify-center bg-muted">
       {children}
     </div>
   )

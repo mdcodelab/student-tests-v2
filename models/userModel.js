@@ -4,11 +4,15 @@ const {Schema}=mongoose;
 
 const UserSchema = new Schema(
   {
-    username: String,
+    name: String,
     email: {
         type: String,
         unique: [true, "Email already exists"],
         required: [true, "Email is required"]
+    },
+    password: {
+      type: String,
+      required: [true, "Passwords must match"]
     },
     image: String,
     role: {

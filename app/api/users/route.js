@@ -14,3 +14,7 @@ export const GET = async (request) => {
     );
   }
 };
+
+const POST = async(request)=> {
+  
+}
