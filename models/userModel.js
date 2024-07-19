@@ -27,4 +27,6 @@ const UserSchema = new Schema(
   { timestamps: true }  //automatically create "createdAt & updatedAt"
 );
 
-export default mongoose.model("User", UserSchema);
+//export default mongoose.model("User", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
+export default User;

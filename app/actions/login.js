@@ -1,5 +1,5 @@
-"use server";
+"use server"
 
-export const login = (values) => {
-    console.log(values);
+export const login = (value)=> {
+    console.log(value);
 }

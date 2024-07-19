@@ -7,8 +7,12 @@ import { useForm, FormProvider} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import toast from "react-hot-toast";
+import { register } from "@/app/actions/register";
+import {useState} from "react";
 
 export const RegisterSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email({ message: "Email is required" }),
   password: z.string().min(1, { message: "Password is required" }),
 });
@@ -17,15 +21,34 @@ function RegisterPage() {
   const methods = useForm({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("Form submitted");
-    console.log(data);
-  };
+  const [isPending, setIsPending]=useState(false);
+
+
+   const onSubmit = async (data) => {
+     console.log(data);
+       try {
+        setIsPending(true);
+         const result = await register(data);
+         if (result && result.email) {
+           toast.success("Registered successfully!");
+           setIsPending(false);
+         } else {
+           toast.error("Error! Try again!");
+           setIsPending(false);
+         }
+       } catch (error) {
+         toast.error("Error! Try again");
+         setIsPending(false);
+       }
+   };
+
+
 
   return (
     <FormProvider {...methods}>
@@ -74,7 +97,8 @@ function RegisterPage() {
                 )}
               ></FormField>
             </div>
-            <Button type="submit" className="w-full text-xl">Create an account</Button>
+            <Button type="submit" className="w-full text-xl" disabled={isPending}>
+            {isPending ? "Submitting..." : "Create an account"}</Button>
           </form>
         </CardContent>
         <CardFooter className="flex justify-between items-center w-full">

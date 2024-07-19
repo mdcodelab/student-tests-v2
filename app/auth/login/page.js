@@ -1,13 +1,25 @@
 "use client";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import * as z from "zod";
-import { useForm, FormProvider} from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { login } from "@/app/actions/login";
+import { login } from "../../actions/login";
 
 export const LoginSchema = z.object({
   email: z.string().email({ message: "Email is required" }),
@@ -78,7 +90,9 @@ function LoginPage() {
                 )}
               ></FormField>
             </div>
-            <Button type="submit" className="w-full text-lg">Login</Button>
+            <Button type="submit" className="w-full text-lg">
+              Login
+            </Button>
           </form>
         </CardContent>
         <CardFooter className="flex justify-between items-center">

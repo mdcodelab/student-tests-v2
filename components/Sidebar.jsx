@@ -33,7 +33,7 @@ const[isUserAdmin, setUserAdmin] = useState(true);
         </Button>
         {isUserAdmin && (
           <Button asChild variant={pathname === "/profile/students" ? "default" : "link"}>
-            <Link href="/profile/students" className="flex items-center gap-x-2 text-xl"><PiStudent /> Test</Link>
+            <Link href="/profile/students" className="flex items-center gap-x-2 text-xl"><PiStudent /> Studenti</Link>
           </Button>
         )}
       </div>
