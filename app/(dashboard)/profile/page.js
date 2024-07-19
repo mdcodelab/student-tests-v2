@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-
+import { getUser } from "@/app/actions/register";
 
 function ProfilePage() {
+  
   return (
     <div className="flex align-center justify-center w-full h-full">
       <div className="flex flex-col gap-y-4 px-4 text-xl">

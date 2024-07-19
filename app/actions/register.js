@@ -32,19 +32,24 @@ try {
 }
 }
 
-const getAllUsers = async ()=> {
+export const getAllUsers = async ()=> {
     try {
         await connectDB();
         const users = await User.find({});
+        return users;
     } catch (error) {
         console.error(error);
     }
 }
 
-export const getUser = async (user)=> {
+export const getUser = async (id)=> {
     await connectDB();
     try {
     const user = await User.findOne({id: user._id});
+    if(!user) {
+        throw new Error("You are not authorized!");
+    }
+    return user;
     } catch (error) {
        console.error(error); 
     }

@@ -24,12 +24,6 @@ export const login = async (value) => {
     } else {
         return { success: "Login successfully." };
     }
-
-    // const isPasswordValid = await bcrypt.compare(value.password, user.password);
-    // if (!isPasswordValid) {
-    //   throw new Error("Invalid credentials.");
-    //}
-
   } catch (error) {
     console.log(error);
     return { error: error.message };

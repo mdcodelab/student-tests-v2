@@ -44,7 +44,10 @@ const UserSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "Answer",
       },
+
     ],
+
+    result: {type: Number, default: 0},
 
     updatedAt: {
       type: Date,

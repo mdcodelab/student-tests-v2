@@ -1,11 +1,42 @@
+import { getAllUsers } from "@/app/actions/register";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table"
 
+async function StudentsPage() {
+  const users=await getAllUsers();
+  console.log(users);
 
-function page() {
   return (
-    <div>
-      Students
+    <div className="rounded-md border">
+      <Table>
+        <TableHeader className="text-xl font-semibold">
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell>Nume</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Rezultat</TableCell>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
+          {users.map((user, index) => {
+            return (
+              <TableRow key={user._id}>
+                <TableCell>{user._id}</TableCell>
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.result}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
     </div>
-  )
+  );
 }
 
-export default page
+export default StudentsPage;
+
+
+
+
+  
