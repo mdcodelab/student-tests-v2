@@ -41,7 +41,7 @@ function RegisterPage() {
       setPending(false);
       toast.success("Register successfully!");
       methods.reset(); 
-      await route.push("/profile");
+      route.push("/profile");
     } catch (error) {
       setPending(false);
       toast.error("There was an error. Try again!");

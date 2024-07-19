@@ -14,10 +14,15 @@ const AnswerSchema = new Schema(
         type: String,
         required: true,
         default: "0"
-      },
+      }
     ],
+      result: {
+        type: Number,
+        default: 0
+      },
   },
   { timestamps: true } //automatically create "createdAt & updatedAt"
 );
 
-export default mongoose.model("Answer", AnswerSchema);
+const Answer = mongoose.models.Answer || mongoose.model("Answer", AnswerSchema);
+export default Answer;

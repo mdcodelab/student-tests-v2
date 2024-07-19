@@ -1,25 +1,16 @@
 "use client";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import * as z from "zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { login } from "../../actions/login";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export const LoginSchema = z.object({
   email: z.string().email({ message: "Email is required" }),
@@ -35,11 +26,26 @@ function LoginPage() {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("Form submitted");
-    console.log(data);
-    login(data);
+  const[isPending, setPending]=useState(false);
+  const route=useRouter();
+
+  const onSubmit = async (data) => {
+    setPending(true);
+    try {
+      const result = await login(data);
+      setPending(false);
+        toast.success("Login successfully!");
+        methods.reset();
+        route.push("/profile");
+    
+    } catch (error) {
+      setPending(false);
+      toast.error("There was an error. Try again!");
+      console.log(error);
+    }
   };
+
+
 
   return (
     <FormProvider {...methods}>
@@ -50,48 +56,32 @@ function LoginPage() {
         <CardContent className="grid gap-4">
           <form className="space-y-6" onSubmit={methods.handleSubmit(onSubmit)}>
             <div className="space-y-4">
-              <FormField
-                control={methods.control}
-                name="email"
+              <FormField control={methods.control} name="email"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-md">Email:</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        type="email"
-                        placeholder="Your email..."
-                      />
+                      <Input {...field} type="email" placeholder="Your email..." disabled={isPending}/>
                     </FormControl>
-                    <FormMessage>
-                      {methods.formState.errors.email?.message}
-                    </FormMessage>
+                    <FormMessage>{methods.formState.errors.email?.message}</FormMessage>
                   </FormItem>
                 )}
               ></FormField>
 
-              <FormField
-                control={methods.control}
-                name="password"
+              <FormField control={methods.control} name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-md">Password:</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        type="password"
-                        placeholder="Your password..."
-                      />
+                      <Input {...field} type="password" placeholder="Your password..." disabled={isPending}/>
                     </FormControl>
-                    <FormMessage>
-                      {methods.formState.errors.password?.message}
-                    </FormMessage>
+                    <FormMessage>{methods.formState.errors.password?.message}</FormMessage>
                   </FormItem>
                 )}
               ></FormField>
             </div>
             <Button type="submit" className="w-full text-lg">
-              Login
+              {isPending? "Pending..." : "Login"}
             </Button>
           </form>
         </CardContent>
