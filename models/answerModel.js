@@ -4,7 +4,7 @@ const {Schema} = mongoose;
 
 const AnswerSchema = new Schema(
   {
-    user: {
+    userId: {
       type: Schema.Types.ObjectId,//use user id
       ref: "User",
       required: true,
