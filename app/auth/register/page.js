@@ -39,13 +39,18 @@ function RegisterPage() {
     try {
       const result = await register(data);
       setPending(false);
-      toast.success("Register successfully!");
-      methods.reset(); 
-      route.push("/profile");
+
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(result.success);
+        methods.reset();
+        router.push("/profile");
+      }
     } catch (error) {
       setPending(false);
       toast.error("There was an error. Try again!");
-      console.log(error);
+      console.error(error);
     }
   };
 

@@ -15,7 +15,7 @@ export const login = async (value) => {
 
     const user = await User.findOne({ email: value.email });
     if (!user) {
-      throw new Error("Invalid credentials.");
+      return {error: "Invalid email."}
     }
 
     const validateFields = LoginSchema.safeParse(value);
