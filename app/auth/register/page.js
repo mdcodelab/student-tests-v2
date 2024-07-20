@@ -32,27 +32,27 @@ function RegisterPage() {
   });
 
   const [isPending, setPending] = useState(false);
-  const route=useRouter();
+  const router=useRouter();
 
-  const onSubmit = async (data) => {
-    setPending(true);
-    try {
-      const result = await register(data);
-      setPending(false);
+   const onSubmit = async (data) => {
+     setPending(true);
+     try {
+       const result = await register(data);
+       setPending(false);
 
-      if (result.error) {
-        toast.error(result.error);
-      } else {
-        toast.success(result.success);
-        methods.reset();
-        router.push("/profile");
-      }
-    } catch (error) {
-      setPending(false);
-      toast.error("There was an error. Try again!");
-      console.error(error);
-    }
-  };
+       if (result.success) {
+         toast.success(result.success);
+         methods.reset();
+         router.push("/profile");
+       } else {
+         toast.error(result.error);
+       }
+     } catch (error) {
+       setPending(false);
+       toast.error("There was an error. Try again!");
+       console.error(error);
+     }
+   };
 
   return (
     <FormProvider {...methods}>

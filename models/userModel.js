@@ -5,21 +5,17 @@ const { Schema } = mongoose;
 const UserSchema = new Schema(
   {
     name: {
-      type: String,
-      required: true,
+      type: String
     },
 
     email: {
-      type: String,
-      unique: [true, "Email already exists"],
-      required: [false, "Email is required"],
+      type: String, unique: true, required: true
     },
 
     emailVerified: { type: Date },
 
     password: {
-      type: String,
-      required: [true, "Passwords must match"],
+      type: String
     },
 
     image: {

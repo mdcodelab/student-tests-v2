@@ -26,14 +26,10 @@ export const register = async (values) => {
       return { error: errorMessages };
     }
 
-    const existingUser = await User.findOne({
-      email: validateFields.data.email,
-    });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return { error: "Email already in use." };
     }
-
-    c
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -44,7 +40,7 @@ export const register = async (values) => {
       password: hashedPassword,
     });
 
-    //TODO: send verification token email
+    // TODO: send verification token email
 
     return { success: "Registered successfully." };
   } catch (error) {
@@ -65,3 +61,14 @@ export const getUser = async (id) => {
     console.error(error);
   }
 };
+
+export const getAllUsers = async ()=> {
+  try {
+    await connectDB();
+    const users = await User.find({});
+    return users;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
