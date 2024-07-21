@@ -13,13 +13,14 @@ const UserSchema = new Schema(
 
     emailVerified: { type: Date },
 
-    password: {
-      type: String
-    },
+    password: {type: String, select: false},
 
     image: {
       type: String,
     },
+
+    //for Google atc.
+    authProviderId: {type: String},
 
     accounts: [
       {

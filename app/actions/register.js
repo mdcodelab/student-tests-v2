@@ -39,28 +39,3 @@ export const register = async (value) => {
 
   return { success: "Registration successful." };
 };
-
-
-export const getUser = async (id) => {
-  await connectDB();
-  try {
-    const user = await User.findOne({ _id: id });
-    if (!user) {
-      throw new Error("You are not authorized!");
-    }
-    return user;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getAllUsers = async ()=> {
-  try {
-    await connectDB();
-    const users = await User.find({});
-    return users;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
