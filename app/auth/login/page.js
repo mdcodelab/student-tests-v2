@@ -3,9 +3,9 @@ import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import * as z from "zod";
-import { useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { login } from "../../actions/login";
 import { useState } from "react";
@@ -15,7 +15,7 @@ import FormSuccess from "@/components/FormSuccess";
 
 export const LoginSchema = z.object({
   email: z.string().email({ message: "Email is required" }),
-  password: z.string().min(1, { message: "Password is required" }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters long." }),
 });
 
 function LoginPage() {
@@ -27,13 +27,12 @@ function LoginPage() {
     },
   });
 
-  const[isPending, setPending]=useState(false);
-  const route=useRouter();
-  const[error, setError]=useState("");
-  const[success, setSuccess]=useState("");
+  const [isPending, setPending] = useState(false);
+  const route = useRouter();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-
-const onSubmit = async (value) => {
+  const onSubmit = async (value) => {
     setPending(true);
     const data = await login(value);
     setPending(false);
@@ -64,7 +63,7 @@ const onSubmit = async (value) => {
                     <FormItem>
                       <FormLabel>Email:</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="Enter email..." {...field} disabled={isPending}/>
+                        <Input type="email" placeholder="Enter email..." {...field} value={field.value || ""} disabled={isPending} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -75,7 +74,7 @@ const onSubmit = async (value) => {
                     <FormItem>
                       <FormLabel>Password:</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="Enter password..." {...field} disabled={isPending}/>
+                        <Input type="password" placeholder="Enter password..." {...field} value={field.value || ""} disabled={isPending} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
