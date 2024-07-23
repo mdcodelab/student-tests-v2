@@ -2,6 +2,11 @@
 import connectDB from "@/config/database";
 import User from "@/models/userModel";
 import * as z from "zod";
+import { signIn } from "@/auth";
+import {DEFAULT_VALUE_REDIRECT} from "@/routes";
+import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
+import { FaPersonThroughWindow } from "react-icons/fa6";
 
 const LoginSchema = z.object({
   email: z.string().email({ message: "Email is required." }), 
@@ -10,17 +15,40 @@ const LoginSchema = z.object({
 
 export const login = async (value) => {
   await connectDB();
-  const validateFields = LoginSchema.safeParse(value);
-  if(!validateFields.success) {
-    return {error: "Invalid fields."}
-  }
-  const existingUser = await User.findOne({email: value.email});
-  if(!existingUser) {
-    return {error: "Invalid credentials."}
-  }
+    const validateFields = LoginSchema.safeParse(value);
+    if(!validateFields.success) {
+      return {error: "Invalid fields."}
+    }
+    const existingUser = await User.findOne({email: value.email});
+    if(!existingUser) {
+       console.log(existingUser);
+      return {error: "Invalid credentials."}
+    }
 
-  return {success: "Login successful!."}
+    const {email, password}=validateFields.data;
+    console.log(email, password);
+
+    try {
+      await signIn("Credentials", { email, password, redirectTo: DEFAULT_VALUE_REDIRECT});
+  
+      return { success: "Login successful." };
+
+    } catch (error) {
+      console.log(error);
+      if(error instanceof AuthError) {
+        switch (error.type) {
+          case "CredentialsSignIn":
+            return {error: "Invalid credentials."}
+            default: 
+            return {error: "Something went wrong."};
+        }
+      }
+      throw error;
+    }
 }
+
+
+
 
 // export const login = async (value) => {
 //   try {
