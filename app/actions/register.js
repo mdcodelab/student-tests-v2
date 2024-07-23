@@ -3,7 +3,7 @@
 import connectDB from "@/config/database";
 import User from "@/models/userModel";
 import * as z from "zod";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const RegisterSchema = z.object({
   name: z.string().min(1, { message: "Name is required." }),
